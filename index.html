@@ -4,51 +4,593 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Trivona Tech - Mobile App Development Studio specializing in Kotlin & Flutter. Founded by Kartik Dhiman & Shivam Sharma.">
-    <meta name="keywords" content="Trivona Tech, Mobile Apps, Kotlin, Flutter, Android, iOS, App Development">
     <title>Trivona Tech - Mobile App Development Studio</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo-text {
+            color: var(--dark);
+        }
+
+        .logo-accent {
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            color: white;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            margin: 15px 0;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            background: var(--light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .about-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .about-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .about-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* ===== TEAM SECTION ===== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 0 auto 20px;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .team-info {
+            padding: 30px;
+        }
+
+        .team-info h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .team-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-bio {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .team-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-badge {
+            padding: 8px 16px;
+            background: var(--light);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ===== TECH STACK ===== */
+        .tech-stack {
+            background: var(--light);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .tech-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .kotlin-icon {
+            background: linear-gradient(135deg, #7f52ff 0%, #c711e1 100%);
+        }
+
+        .flutter-icon {
+            background: linear-gradient(135deg, #027dfd 0%, #42a5f5 100%);
+        }
+
+        .tech-card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .tech-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: var(--dark);
+        }
+
+        .additional-tech h4 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tech-badge {
+            padding: 12px 24px;
+            background: white;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .contact-icon {
+            font-size: 36px;
+        }
+
+        .contact-details h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .contact-details a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-details p {
+            color: var(--gray);
+        }
+
+        .contact-cta {
+            background: var(--light);
+            padding: 50px;
+            border-radius: 20px;
+        }
+
+        .contact-cta h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .contact-cta p {
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            margin-top: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--gray);
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
                     <span class="logo-text">TRIVONA</span>
                     <span class="logo-accent">TECH</span>
                 </div>
-                <ul class="nav-menu" id="navMenu">
+                <ul class="nav-menu">
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#team" class="nav-link">Team</a></li>
                     <li><a href="#tech" class="nav-link">Tech Stack</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-background">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
-        </div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-line">Building The Future</span>
-                    <span class="title-line gradient-text">One App At A Time</span>
-                </h1>
+                <h1 class="hero-title">Building The Future<br>One App At A Time</h1>
                 <p class="hero-subtitle">
                     We craft exceptional mobile experiences with Kotlin & Flutter, 
                     turning innovative ideas into scalable applications.
@@ -71,11 +613,6 @@
                         <span class="stat-label">Client Satisfaction</span>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
             </div>
         </div>
     </section>
@@ -127,8 +664,6 @@
                         <div class="avatar">KD</div>
                         <div class="team-social">
                             <a href="mailto:trivonatech@proton.me" class="social-link">📧</a>
-                            <a href="https://linkedin.com/in/kartikdman" target="_blank" class="social-link">in</a>
-                            <a href="https://github.com/kartikdman" target="_blank" class="social-link">{ }</a>
                         </div>
                     </div>
                     <div class="team-info">
@@ -137,8 +672,7 @@
                         <p class="team-bio">
                             Passionate about building scalable Android applications with Kotlin. 
                             Specializes in Firebase integration, AdMob monetization, and creating 
-                            seamless user experiences. Believes in writing clean, maintainable code 
-                            that stands the test of time.
+                            seamless user experiences.
                         </p>
                         <div class="team-skills">
                             <span class="skill-badge">Kotlin</span>
@@ -161,8 +695,7 @@
                         <p class="team-role">Co-Founder & Flutter Specialist</p>
                         <p class="team-bio">
                             Expert in cross-platform development with Flutter. Focuses on building 
-                            beautiful, performant applications that work seamlessly on both iOS and 
-                            Android. Passionate about state management and responsive design patterns.
+                            beautiful, performant applications that work seamlessly on both iOS and Android.
                         </p>
                         <div class="team-skills">
                             <span class="skill-badge">Flutter</span>
@@ -182,16 +715,12 @@
             <div class="section-header">
                 <span class="section-tag">TECHNOLOGIES</span>
                 <h2 class="section-title">Our Tech Arsenal</h2>
-                <p class="section-description">
-                    We leverage modern technologies to build robust, scalable applications
-                </p>
             </div>
             <div class="tech-grid">
                 <div class="tech-card">
                     <div class="tech-icon kotlin-icon">K</div>
                     <h3>Kotlin</h3>
-                    <p>Modern, concise, and safe programming language for Android development. 
-                       Perfect for building native Android apps with enhanced productivity.</p>
+                    <p>Modern, concise programming language for Android development.</p>
                     <div class="tech-features">
                         <span>• Native Android</span>
                         <span>• Jetpack Compose</span>
@@ -203,8 +732,7 @@
                 <div class="tech-card">
                     <div class="tech-icon flutter-icon">F</div>
                     <h3>Flutter</h3>
-                    <p>Google's UI toolkit for building beautiful, natively compiled applications 
-                       for mobile, web, and desktop from a single codebase.</p>
+                    <p>Cross-platform UI toolkit for mobile, web, and desktop.</p>
                     <div class="tech-features">
                         <span>• Cross-Platform</span>
                         <span>• Hot Reload</span>
@@ -220,11 +748,9 @@
                     <span class="tech-badge">Firebase</span>
                     <span class="tech-badge">Git & GitHub</span>
                     <span class="tech-badge">REST APIs</span>
-                    <span class="tech-badge">SQLite</span>
                     <span class="tech-badge">AdMob</span>
                     <span class="tech-badge">Google Play Console</span>
                     <span class="tech-badge">Figma</span>
-                    <span class="tech-badge">Postman</span>
                 </div>
             </div>
         </div>
@@ -236,9 +762,6 @@
             <div class="section-header">
                 <span class="section-tag">GET IN TOUCH</span>
                 <h2 class="section-title">Let's Build Something Amazing</h2>
-                <p class="section-description">
-                    Have a project in mind? We'd love to hear about it.
-                </p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
@@ -254,13 +777,6 @@
                         <div class="contact-details">
                             <h4>Location</h4>
                             <p>India</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">💼</div>
-                        <div class="contact-details">
-                            <h4>Business Hours</h4>
-                            <p>Monday - Saturday<br>9:00 AM - 6:00 PM IST</p>
                         </div>
                     </div>
                 </div>
@@ -295,8 +811,8 @@
                     <div class="footer-column">
                         <h4>Connect</h4>
                         <a href="mailto:trivonatech@proton.me">Email</a>
-                        <a href="https://github.com/kartikdman" target="_blank">GitHub</a>
-                        <a href="https://linkedin.com/in/kartikdman" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/kartikdman">GitHub</a>
+                        <a href="https://linkedin.com/in/kartikdman">LinkedIn</a>
                     </div>
                 </div>
             </div>
@@ -305,7 +821,5 @@
             </div>
         </div>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
