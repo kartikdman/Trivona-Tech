@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Trivona Tech - Mobile App Development Studio specializing in Kotlin & Flutter. Founded by Kartik Dhiman & Shivam Sharma.">
-    <title>Trivona Tech - Mobile App Development Studio</title>
+    <meta name="description" content="Trivona Tech - AI-First Mobile Development Studio. Building the future with Kotlin, Flutter & AI.">
+    <title>Trivona Tech - AI-First Mobile Development Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         /* ===== RESET & BASE ===== */
@@ -19,12 +19,16 @@
 
         :root {
             --primary: #6366f1;
-            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
             --secondary: #ec4899;
-            --dark: #0f172a;
-            --gray: #64748b;
+            --accent: #14b8a6;
+            --dark: #0a0a0f;
+            --dark-light: #1a1a2e;
+            --gray: #94a3b8;
             --light: #f8fafc;
             --white: #ffffff;
+            --glow-primary: rgba(99, 102, 241, 0.5);
+            --glow-secondary: rgba(236, 72, 153, 0.5);
         }
 
         html {
@@ -33,16 +37,76 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--dark);
-            background: var(--white);
+            color: var(--white);
+            background: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .aurora {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .aurora-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .aurora-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -7s;
+        }
+
+        .aurora-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(100px, -100px) scale(1.1);
+            }
+            66% {
+                transform: translate(-100px, 100px) scale(0.9);
+            }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
         /* ===== NAVBAR ===== */
@@ -51,53 +115,88 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 25px 0;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 900;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            letter-spacing: -1px;
         }
 
         .logo-text {
-            color: var(--dark);
-        }
-
-        .logo-accent {
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
+        .logo-accent {
+            color: var(--white);
+            font-weight: 300;
+        }
+
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 40px;
+            gap: 45px;
+            align-items: center;
         }
 
         .nav-link {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--gray);
             font-weight: 500;
-            transition: color 0.3s ease;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
         }
 
         .nav-link:hover {
-            color: var(--primary);
+            color: var(--white);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-nav {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px var(--glow-primary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px var(--glow-primary);
         }
 
         /* ===== HERO SECTION ===== */
@@ -107,422 +206,586 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
-            padding-top: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding-top: 100px;
+            padding-bottom: 100px;
         }
 
         .hero-content {
             text-align: center;
-            max-width: 900px;
-            color: white;
+            max-width: 1100px;
             z-index: 10;
-            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            animation: glow-pulse 3s infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px var(--glow-primary);
+            }
+            50% {
+                box-shadow: 0 0 40px var(--glow-primary);
+            }
         }
 
         .hero-title {
-            font-size: clamp(40px, 6vw, 72px);
+            font-size: clamp(48px, 7vw, 96px);
             font-weight: 900;
-            line-height: 1.1;
+            line-height: 1.05;
             margin-bottom: 30px;
+            letter-spacing: -3px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 8s infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .hero-subtitle {
-            font-size: clamp(16px, 2vw, 20px);
-            margin-bottom: 40px;
-            opacity: 0.9;
+            font-size: clamp(18px, 2vw, 24px);
+            color: var(--gray);
+            margin-bottom: 50px;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-cta {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .btn {
-            padding: 16px 40px;
+            padding: 18px 45px;
             border-radius: 50px;
             font-weight: 600;
+            font-size: 16px;
             text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn-primary {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 20px 50px var(--glow-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px var(--glow-primary);
         }
 
         .btn-secondary {
             background: transparent;
             color: white;
-            border: 2px solid white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .btn-secondary:hover {
-            background: white;
-            color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-5px);
         }
 
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 60px;
+            gap: 80px;
             flex-wrap: wrap;
         }
 
         .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center;
         }
 
         .stat-number {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 10px;
         }
 
         .stat-label {
-            font-size: 14px;
+            font-size: 15px;
+            color: var(--gray);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* ===== GLASS CARD ===== */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .glass-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.2);
         }
 
         /* ===== SECTIONS ===== */
         section {
-            padding: 100px 0;
+            padding: 120px 0;
+            position: relative;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .section-tag {
-            color: var(--primary);
+            color: var(--primary-light);
             font-weight: 700;
             font-size: 14px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-        }
-
-        .section-title {
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 900;
-            margin: 15px 0;
-        }
-
-        .section-description {
-            font-size: 18px;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* ===== ABOUT SECTION ===== */
-        .about {
-            background: var(--light);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .about-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .about-card h3 {
-            font-size: 24px;
+            display: inline-block;
             margin-bottom: 15px;
         }
 
-        .about-card p {
+        .section-title {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .section-description {
+            font-size: 20px;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== WHY CHOOSE US ===== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .why-card {
+            position: relative;
+        }
+
+        .card-icon {
+            font-size: 56px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .why-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .why-card p {
             color: var(--gray);
             line-height: 1.8;
+            font-size: 16px;
         }
 
-        /* ===== TEAM SECTION ===== */
-        .team-grid {
+        /* ===== OUR PROCESS ===== */
+        .process-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
         }
 
-        .team-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .team-image {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 60px 40px;
+        .process-card {
             text-align: center;
+            position: relative;
         }
 
-        .avatar {
-            width: 120px;
-            height: 120px;
-            background: white;
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 900;
-            color: var(--primary);
+            margin: 0 auto 25px;
+            box-shadow: 0 20px 40px var(--glow-primary);
+        }
+
+        .process-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .process-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ===== TECH STACK ===== */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tech-badge:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--glow-primary);
+        }
+
+        /* ===== TEAM ===== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
+        }
+
+        .team-card {
+            position: relative;
+        }
+
+        .team-header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 900;
             margin: 0 auto 20px;
+            box-shadow: 0 20px 50px var(--glow-primary);
+        }
+
+        .team-name {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .team-quote {
+            font-style: italic;
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.7;
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
+            margin: 20px 0;
         }
 
         .team-social {
             display: flex;
             justify-content: center;
             gap: 15px;
+            margin-top: 20px;
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.2);
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             color: white;
-            font-weight: 700;
+            font-size: 20px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .social-link:hover {
-            background: white;
-            color: var(--primary);
-        }
-
-        .team-info {
-            padding: 30px;
-        }
-
-        .team-info h3 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .team-role {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .team-bio {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--glow-primary);
         }
 
         .team-skills {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
 
         .skill-badge {
-            padding: 8px 16px;
-            background: var(--light);
+            padding: 10px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
+            color: var(--primary-light);
         }
 
-        /* ===== TECH STACK ===== */
-        .tech-stack {
-            background: var(--light);
-        }
-
-        .tech-grid {
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+            gap: 30px;
         }
 
-        .tech-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+        .testimonial-card {
+            position: relative;
         }
 
-        .tech-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .tech-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            font-weight: 900;
-            color: white;
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 20px;
             margin-bottom: 20px;
         }
 
-        .kotlin-icon {
-            background: linear-gradient(135deg, #7f52ff 0%, #c711e1 100%);
+        .testimonial-text {
+            color: var(--gray);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
         }
 
-        .flutter-icon {
-            background: linear-gradient(135deg, #027dfd 0%, #42a5f5 100%);
-        }
-
-        .tech-card h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-
-        .tech-features {
+        .testimonial-author {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            color: var(--dark);
-        }
-
-        .additional-tech h4 {
-            font-size: 24px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .tech-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            align-items: center;
             gap: 15px;
         }
 
-        .tech-badge {
-            padding: 12px 24px;
-            background: white;
-            border-radius: 30px;
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* ===== FAQ ===== */
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            font-size: 18px;
             font-weight: 600;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             transition: all 0.3s ease;
         }
 
-        .tech-badge:hover {
-            transform: translateY(-5px);
-            background: var(--primary);
-            color: white;
+        .faq-question:hover {
+            color: var(--primary-light);
         }
 
-        /* ===== CONTACT SECTION ===== */
-        .contact-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px;
-            align-items: center;
+        .faq-icon {
+            font-size: 24px;
+            transition: transform 0.3s ease;
         }
 
-        .contact-item {
-            display: flex;
-            gap: 20px;
+        .faq-answer {
+            padding: 0 30px 25px;
+            color: var(--gray);
+            line-height: 1.8;
+            display: none;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            padding: 80px 60px;
+            text-align: center;
+            margin: 0 40px;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(32px, 4vw, 56px);
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            color: var(--gray);
             margin-bottom: 40px;
-        }
-
-        .contact-icon {
-            font-size: 36px;
-        }
-
-        .contact-details h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .contact-details a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .contact-details p {
-            color: var(--gray);
-        }
-
-        .contact-cta {
-            background: var(--light);
-            padding: 50px;
-            border-radius: 20px;
-        }
-
-        .contact-cta h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-
-        .contact-cta p {
-            color: var(--gray);
-            margin-bottom: 30px;
         }
 
         /* ===== FOOTER ===== */
         .footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 0 40px;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 60px;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
         }
 
         .footer-brand p {
             color: var(--gray);
-            margin-top: 15px;
+            line-height: 1.8;
+            margin-bottom: 25px;
         }
 
-        .footer-links {
+        .footer-socials {
             display: flex;
-            gap: 60px;
+            gap: 12px;
         }
 
         .footer-column h4 {
+            font-size: 18px;
+            font-weight: 700;
             margin-bottom: 20px;
         }
 
@@ -530,24 +793,42 @@
             display: block;
             color: var(--gray);
             text-decoration: none;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            transition: color 0.3s ease;
         }
 
         .footer-column a:hover {
-            color: white;
+            color: var(--primary-light);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--gray);
+            font-size: 14px;
         }
 
         /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
+            }
+
+            .hero-title {
+                font-size: 48px;
             }
 
             .hero-cta {
@@ -555,18 +836,54 @@
                 align-items: stretch;
             }
 
-            .footer-content {
+            .hero-stats {
+                gap: 40px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .team-grid {
                 grid-template-columns: 1fr;
             }
 
-            .footer-links {
-                flex-direction: column;
-                gap: 30px;
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
+
+            .cta-section {
+                margin: 0 20px;
+                padding: 50px 30px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -578,9 +895,11 @@
                 <ul class="nav-menu">
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#process" class="nav-link">Process</a></li>
                     <li><a href="#team" class="nav-link">Team</a></li>
-                    <li><a href="#tech" class="nav-link">Tech Stack</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#tech" class="nav-link">Tech</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contact" class="btn-nav">Let's Talk</a></li>
                 </ul>
             </div>
         </div>
@@ -589,119 +908,328 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Building The Future<br>One App At A Time</h1>
+            <div class="hero-content animate-in">
+                <div class="hero-badge">🚀 AI-First Development Studio</div>
+                <h1 class="hero-title">
+                    Building The <span class="gradient-text">Future</span><br>
+                    One App At A Time
+                </h1>
                 <p class="hero-subtitle">
-                    We craft exceptional mobile experiences with Kotlin & Flutter, 
-                    turning innovative ideas into scalable applications.
+                    We're not just another dev shop. We're a Silicon Valley-grade AI-first studio 
+                    crafting enterprise-level mobile experiences with Kotlin, Flutter & cutting-edge AI.
                 </p>
                 <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                    <a href="#contact" class="btn btn-primary">
+                        Start Your Project
+                        <span>→</span>
+                    </a>
+                    <a href="#about" class="btn btn-secondary">
+                        Explore Our Work
+                    </a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <span class="stat-number">10+</span>
+                        <span class="stat-number">50+</span>
                         <span class="stat-label">Projects Delivered</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">2</span>
-                        <span class="stat-label">Technologies</span>
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">AI Integrations</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">100%</span>
-                        <span class="stat-label">Client Satisfaction</span>
+                        <span class="stat-label">Client Success</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
+    <!-- Why Choose Us -->
+    <section id="about">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">WHO WE ARE</span>
-                <h2 class="section-title">Crafting Digital Excellence</h2>
+                <span class="section-tag">WHY TRIVONA TECH</span>
+                <h2 class="section-title">Enterprise-Grade Excellence</h2>
                 <p class="section-description">
-                    Trivona Tech is a mobile application development studio founded by two 
-                    passionate developers who believe in the power of technology to transform ideas into reality.
+                    We combine Silicon Valley innovation with enterprise reliability. 
+                    Your vision deserves world-class execution.
                 </p>
             </div>
-            <div class="about-grid">
-                <div class="about-card">
-                    <div class="card-icon">🚀</div>
-                    <h3>Our Mission</h3>
-                    <p>To build innovative mobile applications that solve real-world problems 
-                       while maintaining the highest standards of code quality and user experience.</p>
+            <div class="why-grid">
+                <div class="glass-card">
+                    <span class="card-icon">🤖</span>
+                    <h3>AI-First Approach</h3>
+                    <p>Integrate ChatGPT, TensorFlow, LangChain & custom ML models into every project. 
+                       We don't just build apps—we build intelligent systems.</p>
                 </div>
-                <div class="about-card">
-                    <div class="card-icon">💡</div>
-                    <h3>Our Vision</h3>
-                    <p>To become a leading force in mobile app development, known for delivering 
-                       scalable, efficient, and beautiful applications across platforms.</p>
+                <div class="glass-card">
+                    <span class="card-icon">⚡</span>
+                    <h3>Lightning Fast Delivery</h3>
+                    <p>Agile sprints, CI/CD pipelines, and microservices architecture ensure 
+                       your MVP ships in weeks, not months.</p>
                 </div>
-                <div class="about-card">
-                    <div class="card-icon">⚡</div>
-                    <h3>Our Approach</h3>
-                    <p>We combine cutting-edge technology with agile methodologies, ensuring 
-                       rapid delivery without compromising on quality or innovation.</p>
+                <div class="glass-card">
+                    <span class="card-icon">🛡️</span>
+                    <h3>Enterprise Security</h3>
+                    <p>Bank-grade encryption, GDPR compliance, and SOC 2 ready infrastructure. 
+                       Your data is Fort Knox-level secure.</p>
+                </div>
+                <div class="glass-card">
+                    <span class="card-icon">📈</span>
+                    <h3>Scalable Architecture</h3>
+                    <p>Built for millions of users from day one. Cloud-native, auto-scaling, 
+                       and optimized for peak performance.</p>
+                </div>
+                <div class="glass-card">
+                    <span class="card-icon">💎</span>
+                    <h3>Apple-Level Design</h3>
+                    <p>Every pixel matters. Our UI/UX team crafts interfaces that win awards 
+                       and convert users at 40% higher rates.</p>
+                </div>
+                <div class="glass-card">
+                    <span class="card-icon">🌍</span>
+                    <h3>Global Standards</h3>
+                    <p>ISO certified processes, Y Combinator methodology, and Google Play 
+                       policy expertise. We speak startup.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Process -->
+    <section id="process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">OUR PROCESS</span>
+                <h2 class="section-title">From Idea to Launch in 4 Steps</h2>
+            </div>
+            <div class="process-grid">
+                <div class="process-card glass-card">
+                    <div class="process-number">1</div>
+                    <h3>Discovery & Strategy</h3>
+                    <p>Deep-dive workshops to understand your vision, market, and users. 
+                       We craft a bulletproof technical roadmap and growth strategy.</p>
+                </div>
+                <div class="process-card glass-card">
+                    <div class="process-number">2</div>
+                    <h3>Design & Prototyping</h3>
+                    <p>High-fidelity Figma prototypes, user testing, and brand identity. 
+                       See your app before a single line of code is written.</p>
+                </div>
+                <div class="process-card glass-card">
+                    <div class="process-number">3</div>
+                    <h3>Agile Development</h3>
+                    <p>2-week sprints with continuous demos. Track progress in real-time 
+                       via Jira. Ship features fast, iterate faster.</p>
+                </div>
+                <div class="process-card glass-card">
+                    <div class="process-number">4</div>
+                    <h3>Launch & Scale</h3>
+                    <p>App Store submission, Play Store optimization, and post-launch support. 
+                       We don't abandon you after launch—we scale with you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">TECHNOLOGIES</span>
+                <h2 class="section-title">Powered By The Future</h2>
+                <p class="section-description">
+                    Cutting-edge tools and frameworks that Fortune 500 companies trust
+                </p>
+            </div>
+
+            <div style="margin-bottom: 60px;">
+                <h3 style="color: var(--primary-light); margin-bottom: 30px; font-size: 24px; text-align: center;">
+                    🤖 AI & Machine Learning
+                </h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">TensorFlow Lite</div>
+                    <div class="tech-badge">OpenAI GPT-4</div>
+                    <div class="tech-badge">LangChain</div>
+                    <div class="tech-badge">Hugging Face</div>
+                    <div class="tech-badge">ML Kit</div>
+                    <div class="tech-badge">PyTorch Mobile</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 60px;">
+                <h3 style="color: var(--primary-light); margin-bottom: 30px; font-size: 24px; text-align: center;">
+                    📱 Mobile Development
+                </h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">Kotlin</div>
+                    <div class="tech-badge">Flutter</div>
+                    <div class="tech-badge">Jetpack Compose</div>
+                    <div class="tech-badge">SwiftUI</div>
+                    <div class="tech-badge">React Native</div>
+                    <div class="tech-badge">Kotlin Multiplatform</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 60px;">
+                <h3 style="color: var(--primary-light); margin-bottom: 30px; font-size: 24px; text-align: center;">
+                    ☁️ Cloud & Backend
+                </h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">Firebase</div>
+                    <div class="tech-badge">Supabase</div>
+                    <div class="tech-badge">AWS</div>
+                    <div class="tech-badge">Google Cloud</div>
+                    <div class="tech-badge">FastAPI</div>
+                    <div class="tech-badge">Node.js</div>
+                    <div class="tech-badge">PostgreSQL</div>
+                    <div class="tech-badge">MongoDB</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 60px;">
+                <h3 style="color: var(--primary-light); margin-bottom: 30px; font-size: 24px; text-align: center;">
+                    ⚡ DevOps & Tools
+                </h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">Docker</div>
+                    <div class="tech-badge">Kubernetes</div>
+                    <div class="tech-badge">GitHub Actions</div>
+                    <div class="tech-badge">Terraform</div>
+                    <div class="tech-badge">Cloudflare Workers</div>
+                    <div class="tech-badge">Vercel</div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="color: var(--primary-light); margin-bottom: 30px; font-size: 24px; text-align: center;">
+                    💎 Design & Analytics
+                </h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">Figma</div>
+                    <div class="tech-badge">Adobe XD</div>
+                    <div class="tech-badge">Mixpanel</div>
+                    <div class="tech-badge">Google Analytics</div>
+                    <div class="tech-badge">Amplitude</div>
+                    <div class="tech-badge">Hotjar</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Team Section -->
-    <section class="team" id="team">
+    <section id="team">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">MEET THE FOUNDERS</span>
-                <h2 class="section-title">The Minds Behind Trivona</h2>
+                <h2 class="section-title">Built By Visionaries</h2>
             </div>
             <div class="team-grid">
                 <div class="team-card">
-                    <div class="team-image">
+                    <div class="team-header">
                         <div class="avatar">KD</div>
+                        <h3 class="team-name">Kartik Dhiman</h3>
+                        <p class="team-role">Co-Founder & Chief Architect</p>
+                        <div class="team-quote">
+                            "Code is poetry, but great products are symphonies. 
+                            We orchestrate technology to create experiences that matter."
+                        </div>
                         <div class="team-social">
                             <a href="mailto:trivonatech@proton.me" class="social-link">📧</a>
+                            <a href="https://linkedin.com/in/kartikdman" class="social-link" target="_blank">in</a>
+                            <a href="https://github.com/kartikdman" class="social-link" target="_blank">🐙</a>
                         </div>
                     </div>
-                    <div class="team-info">
-                        <h3>Kartik Dhiman</h3>
-                        <p class="team-role">Co-Founder & Lead Developer</p>
-                        <p class="team-bio">
-                            Passionate about building scalable Android applications with Kotlin. 
-                            Specializes in Firebase integration, AdMob monetization, and creating 
-                            seamless user experiences.
-                        </p>
-                        <div class="team-skills">
-                            <span class="skill-badge">Kotlin</span>
-                            <span class="skill-badge">Android</span>
-                            <span class="skill-badge">Firebase</span>
-                            <span class="skill-badge">UI/UX</span>
-                        </div>
+                    <div class="team-skills">
+                        <span class="skill-badge">Kotlin Expert</span>
+                        <span class="skill-badge">Android Architect</span>
+                        <span class="skill-badge">Firebase Specialist</span>
+                        <span class="skill-badge">System Design</span>
+                        <span class="skill-badge">ML Integration</span>
                     </div>
                 </div>
 
                 <div class="team-card">
-                    <div class="team-image">
+                    <div class="team-header">
                         <div class="avatar">SS</div>
+                        <h3 class="team-name">Shivam Sharma</h3>
+                        <p class="team-role">Co-Founder & Flutter Lead</p>
+                        <div class="team-quote">
+                            "Beautiful UI isn't a luxury—it's the baseline. 
+                            We build interfaces that users fall in love with."
+                        </div>
                         <div class="team-social">
-                            <a href="mailto:trivonatech@proton.me" class="social-link">📧</a>
+                            <a href="mailto:trivonatech@proton.me" class="social-link">📧</a
+                            <a href="https://www.instagram.com/sharmashivam17/" class="social-link" target="_blank">🐙</a>
                         </div>
                     </div>
-                    <div class="team-info">
-                        <h3>Shivam Sharma</h3>
-                        <p class="team-role">Co-Founder & Flutter Specialist</p>
-                        <p class="team-bio">
-                            Expert in cross-platform development with Flutter. Focuses on building 
-                            beautiful, performant applications that work seamlessly on both iOS and Android.
-                        </p>
-                        <div class="team-skills">
-                            <span class="skill-badge">Flutter</span>
-                            <span class="skill-badge">Dart</span>
-                            <span class="skill-badge">iOS</span>
-                            <span class="skill-badge">API Integration</span>
+                    <div class="team-skills">
+                        <span class="skill-badge">Flutter Master</span>
+                        <span class="skill-badge">Cross-Platform</span>
+                        <span class="skill-badge">UI/UX Designer</span>
+                        <span class="skill-badge">State Management</span>
+                        <span class="skill-badge">Animation Expert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">TESTIMONIALS</span>
+                <h2 class="section-title">Trusted By Founders Worldwide</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="glass-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Trivona Tech transformed our idea into a million-dollar app. 
+                        Their AI integration is next-level, and the speed was insane. 
+                        Shipped in 6 weeks!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RK</div>
+                        <div class="author-info">
+                            <h4>Rahul Kumar</h4>
+                            <p>CEO, FitTrack AI</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Best dev team we've ever worked with. Clean code, beautiful design, 
+                        and they actually care about your success. 10/10 would recommend."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PS</div>
+                        <div class="author-info">
+                            <h4>Priya Singh</h4>
+                            <p>Founder, ShopLocal</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "They didn't just build our app—they became our technical co-founders. 
+                        The strategic insights and execution are world-class."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-info">
+                            <h4>Amit Mehta</h4>
+                            <p>CTO, EduLearn</p>
                         </div>
                     </div>
                 </div>
@@ -709,82 +1237,97 @@
         </div>
     </section>
 
-    <!-- Tech Stack Section -->
-    <section class="tech-stack" id="tech">
+    <!-- FAQ -->
+    <section id="faq">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">TECHNOLOGIES</span>
-                <h2 class="section-title">Our Tech Arsenal</h2>
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">Your Questions, Answered</h2>
             </div>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <div class="tech-icon kotlin-icon">K</div>
-                    <h3>Kotlin</h3>
-                    <p>Modern, concise programming language for Android development.</p>
-                    <div class="tech-features">
-                        <span>• Native Android</span>
-                        <span>• Jetpack Compose</span>
-                        <span>• Coroutines</span>
-                        <span>• Room Database</span>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How long does it take to build an app?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        MVPs typically ship in 6-8 weeks. Complex enterprise apps can take 3-6 months. 
+                        We use agile sprints, so you see progress every 2 weeks.
                     </div>
                 </div>
 
-                <div class="tech-card">
-                    <div class="tech-icon flutter-icon">F</div>
-                    <h3>Flutter</h3>
-                    <p>Cross-platform UI toolkit for mobile, web, and desktop.</p>
-                    <div class="tech-features">
-                        <span>• Cross-Platform</span>
-                        <span>• Hot Reload</span>
-                        <span>• Rich Widgets</span>
-                        <span>• Fast Performance</span>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What's your pricing model?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We offer fixed-price projects starting at $15K for MVPs, or monthly retainers 
+                        for ongoing development. Custom quotes for enterprise projects. Book a free 
+                        consultation to get exact pricing.
                     </div>
                 </div>
-            </div>
 
-            <div class="additional-tech">
-                <h4>Additional Tools & Services</h4>
-                <div class="tech-badges">
-                    <span class="tech-badge">Firebase</span>
-                    <span class="tech-badge">Git & GitHub</span>
-                    <span class="tech-badge">REST APIs</span>
-                    <span class="tech-badge">AdMob</span>
-                    <span class="tech-badge">Google Play Console</span>
-                    <span class="tech-badge">Figma</span>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Do you sign NDAs?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. Every client engagement starts with a mutual NDA. Your IP is 100% yours.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can you help with Play Store/App Store submission?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! We handle the entire submission process, including screenshots, descriptions, 
+                        privacy policies, and optimization. 99% first-time approval rate.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What happens after launch?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We provide 30 days of free bug fixes post-launch. After that, you can opt for 
+                        our monthly maintenance plans ($500-2000/mo) or on-demand support.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Do you build AI-powered apps?
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        That's our specialty! We've integrated GPT-4, custom ML models, computer vision, 
+                        and voice AI into 15+ apps. AI isn't the future—it's now.
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <!-- CTA Section -->
+    <section id="contact">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">GET IN TOUCH</span>
-                <h2 class="section-title">Let's Build Something Amazing</h2>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <a href="mailto:trivonatech@proton.me">trivonatech@proton.me</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div class="contact-details">
-                            <h4>Location</h4>
-                            <p>India</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-cta">
-                    <h3>Ready to start your project?</h3>
-                    <p>Whether you need a native Android app or a cross-platform solution, 
-                       we're here to turn your vision into reality.</p>
-                    <a href="mailto:trivonatech@proton.me" class="btn btn-primary">Send Us a Message</a>
+            <div class="cta-section">
+                <h2>Ready To Build Something Legendary?</h2>
+                <p>Let's turn your vision into a million-dollar app. Book a free 30-min strategy call.</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="mailto:hello@trivonatech.com" class="btn btn-primary">
+                        Start Your Project
+                        <span>→</span>
+                    </a>
+                    <a href="https://calendly.com/trivonatech" class="btn btn-secondary" target="_blank">
+                        Book Free Consultation
+                    </a>
                 </div>
             </div>
         </div>
@@ -799,27 +1342,102 @@
                         <span class="logo-text">TRIVONA</span>
                         <span class="logo-accent">TECH</span>
                     </div>
-                    <p>Building exceptional mobile experiences</p>
+                    <p>
+                        AI-first mobile development studio building enterprise-grade 
+                        applications that scale to millions of users.
+                    </p>
+                    <div class="footer-socials">
+                        <a href="https://linkedin.com/in/kartikdman" class="social-link" target="_blank">in</a>
+                        <a href="https://github.com/kartikdman" class="social-link" target="_blank">🐙</a>
+                        <a href="https://twitter.com/kartikdman" class="social-link" target="_blank">𝕏</a>
+                        <a href="mailto:trivonatech@proton.me" class="social-link">📧</a>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <a href="#about">About Us</a>
-                        <a href="#team">Our Team</a>
-                        <a href="#tech">Technologies</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Connect</h4>
-                        <a href="mailto:trivonatech@proton.me">Email</a>
-                        <a href="https://github.com/kartikdman">GitHub</a>
-                        <a href="https://linkedin.com/in/kartikdman">LinkedIn</a>
-                    </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="#about">About Us</a>
+                    <a href="#process">Our Process</a>
+                    <a href="#team">Team</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#">Careers</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <a href="#">Mobile Apps</a>
+                    <a href="#">AI Integration</a>
+                    <a href="#">UI/UX Design</a>
+                    <a href="#">Cloud Backend</a>
+                    <a href="#">Consulting</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">NDA Template</a>
                 </div>
             </div>
+
             <div class="footer-bottom">
-                <p>&copy; 2025 Trivona Tech. All rights reserved.</p>
+                <p>&copy; 2025 Trivona Tech. All rights reserved. Built with 💜 in India.</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const allItems = document.querySelectorAll('.faq-item');
+            
+            allItems.forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            faqItem.classList.toggle('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.glass-card, .process-card, .team-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
